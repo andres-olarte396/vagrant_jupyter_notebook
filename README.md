@@ -1,70 +1,70 @@
-# Jupyter Notebook VM Setup with Vagrant
+# Configuración de VM para Jupyter Notebook con Vagrant
 
-This project sets up a virtual machine running Ubuntu 20.04 (`ubuntu/focal64`) with Jupyter Notebook installed using Vagrant. The configuration script automatically installs the necessary dependencies, sets up the environment, and configures Jupyter Notebook to be accessible remotely.
+Este proyecto configura una máquina virtual que ejecuta Ubuntu 20.04 (`ubuntu/focal64`) con Jupyter Notebook instalado, utilizando Vagrant. El script de configuración instala automáticamente las dependencias necesarias, configura el entorno y habilita el acceso remoto a Jupyter Notebook.
 
-## Requirements
+## Requisitos
 
-Before starting, ensure you have the following installed on your local machine:
+Antes de comenzar, asegúrate de tener instalados en tu máquina local:
 
-- [VirtualBox](https://www.virtualbox.org/) (or any other provider supported by Vagrant)
+- [VirtualBox](https://www.virtualbox.org/) (o cualquier otro proveedor compatible con Vagrant)
 - [Vagrant](https://www.vagrantup.com/)
 
-## Getting Started
+## Comenzando
 
-### 1. Clone the repository
+### 1. Clonar el repositorio
 
 ```bash
-git clone <repository_url>
-cd <repository_directory>
+git clone <url_del_repositorio>
+cd <directorio_del_repositorio>
 ```
 
-### 2. Initialize and start the Vagrant machine
+### 2. Iniciar y levantar la máquina Vagrant
 
 ```bash
 vagrant up
 ```
 
-This will download the `ubuntu/focal64` image if not already present, provision the virtual machine, and execute the setup script to install Python, pip, and Jupyter Notebook.
+Esto descargará la imagen `ubuntu/focal64` si no está presente, aprovisionará la máquina virtual y ejecutará el script de configuración para instalar Python, pip y Jupyter Notebook.
 
-### 3. Access Jupyter Notebook
+### 3. Acceder a Jupyter Notebook
 
-Once the setup is complete, open your browser and navigate to:
+Una vez que la configuración esté completa, abre tu navegador y dirígete a:
 
 ```txt
   http://localhost:8888
 ```
 
-Note: The notebook is configured to be accessible from any IP address (`0.0.0.0`), and it won't automatically open a browser.
+Nota: El notebook está configurado para ser accesible desde cualquier dirección IP (`0.0.0.0`), y no abrirá automáticamente un navegador.
 
 #### Acceso a Jupyter Notebook
 
-Después de ejecutar el script de instalación y ejecutar Jupyter Notebook, se te pedirá autenticación mediante token. Puedes optar por usar el token actual o configurar una contraseña siguiendo los pasos a continuación.
+Después de ejecutar el script de instalación y lanzar Jupyter Notebook, se te pedirá autenticación mediante un token. Puedes optar por usar el token actual o configurar una contraseña siguiendo los pasos a continuación.
 
-##### Opción 1: Usar el token actual
+##### Opción 1: Usar el Token Actual
 
-3.1. **Obtener el token**: En la terminal donde ejecutaste Jupyter Notebook, usa el siguiente comando para obtener el token:
-  
+3.1. **Obtener el token**: En la terminal donde lanzaste Jupyter Notebook, usa el siguiente comando para obtener el token:
+
   ```bash
   jupyter notebook list
   ```
 
-  Esto mostrará una URL que incluye un token, algo similar a:
+  Esto mostrará una URL que incluye un token, similar a:
 
   ```txt
   http://localhost:8888/?token=<tu_token_aquí>
   ```
 
-3.2. **Copia el token** desde la terminal y pégalo en el campo de autenticación "Password or token" en el navegador web.
+3.2. **Copia el token** desde la terminal y pégalo en el campo "Password or token" en la pantalla de autenticación de tu navegador web.
 
 3.3. Haz clic en **"Log in"** para acceder a Jupyter Notebook.
 
-##### Opción 2: Configurar una contraseña personalizada
+##### Opción 2: Configurar una Contraseña Personalizada
 
 Si prefieres usar una contraseña en lugar del token para futuras sesiones:
 
 3.4. **Ingresa el token** en el campo "Token" de la pantalla de autenticación.
 
-3.5. **Configura una nueva contraseña** escribiendo tu nueva contraseña en el campo "New Password".
+3.5. **Configura una nueva contraseña** escribiendo tu contraseña deseada en el campo "New Password".
 
 3.6. Haz clic en **"Log in and set new password"**. Esto configurará la contraseña para que la uses en lugar del token en futuras sesiones.
 
@@ -72,42 +72,40 @@ Si prefieres usar una contraseña en lugar del token para futuras sesiones:
 
 ```txt
 - A partir de este momento, podrás iniciar sesión en Jupyter Notebook utilizando solo tu contraseña personalizada.
-- Si deseas resetear la contraseña o volver a usar un token, puedes ejecutar nuevamente el comando `jupyter notebook --generate-config` y editar las configuraciones en el archivo de configuración generado.
+- Si deseas restablecer la contraseña o volver a usar un token, puedes ejecutar nuevamente el comando `jupyter notebook --generate-config` y editar las configuraciones en el archivo de configuración generado.
 ```
 
-Este texto puede ser agregado a la sección de **Uso y Configuración** en tu archivo `README` para que los usuarios sepan cómo acceder a Jupyter Notebook.
+### 4. Sincronización de Notebooks
 
-### 4. Syncing Notebooks
+La carpeta `/vagrant/notebooks` en la VM está sincronizada con una carpeta `notebooks` en el directorio raíz del proyecto. Cualquier archivo que agregues a esta carpeta estará disponible en el entorno de Jupyter dentro de la VM.
 
-The `/vagrant/notebooks` folder in the VM is synced with a local `notebooks` folder in the root directory of the project. Any files you add to this folder will be available within the VM's Jupyter environment.
+### 5. Detener la Máquina Virtual
 
-### 5. Stopping the Virtual Machine
-
-To stop the running VM, use the following command:
+Para detener la VM en ejecución, usa el siguiente comando:
 
 ```bash
 vagrant halt
 ```
 
-### 6. Destroying the Virtual Machine
+### 6. Destruir la Máquina Virtual
 
-If you need to destroy the VM and remove all associated resources, run:
+Si necesitas destruir la VM y eliminar todos los recursos asociados, ejecuta:
 
 ```bash
 vagrant destroy
 ```
 
-## Customizing the Setup
+## Personalización de la Configuración
 
-If you need to make adjustments to the provisioning script, you can modify the `Vagrantfile` or the shell script that handles Jupyter Notebook installation:
+Si necesitas realizar ajustes en el script de aprovisionamiento, puedes modificar el `Vagrantfile` o el script de shell que maneja la instalación de Jupyter Notebook:
 
-- `Vagrantfile` - Defines the VM's configuration.
-- `provision.sh` - Script that installs and configures Jupyter Notebook.
+- `Vagrantfile` - Define la configuración de la VM.
+- `provision.sh` - Script que instala y configura Jupyter Notebook.
 
-## Troubleshooting
+## Resolución de Problemas
 
-- **Jupyter Notebook not accessible:** Ensure that the VM is running (`vagrant up`) and that port `8888` is available on your host machine. If it's still not accessible, verify that the Jupyter Notebook service is running within the VM using `vagrant ssh` and `ps aux | grep jupyter`.
+- **Jupyter Notebook no es accesible:** Asegúrate de que la VM está en ejecución (`vagrant up`) y que el puerto `8888` está disponible en tu máquina anfitriona. Si aún no es accesible, verifica que el servicio de Jupyter Notebook esté activo dentro de la VM usando `vagrant ssh` y `ps aux | grep jupyter`.
 
-## License
+## Licencia
 
-This project is licensed under the MIT License.
+Este proyecto está licenciado bajo la Licencia MIT.
