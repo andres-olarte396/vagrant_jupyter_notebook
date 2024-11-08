@@ -126,6 +126,7 @@ cython_debug/
 
 # Ignore all local data files
 data/
+shared/
 
 # Ignore vagrant generated files
 .vagrant/
